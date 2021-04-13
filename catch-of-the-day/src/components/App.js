@@ -11,11 +11,10 @@ class App extends React.Component {
     fishes: {},
     order: {}
   };
-  componentDidMont() {
+  componentDidMount() {
     const { match } = this.props;
     const localStorageRefOrder = localStorage.getItem(match.params.storeId);
     const localStorageRefFishes = localStorage.getItem(match.url);
-    console.log(localStorageRefFishes);
     if (localStorageRefFishes) {
       this.setState({
         fishes: JSON.parse(localStorageRefFishes)
