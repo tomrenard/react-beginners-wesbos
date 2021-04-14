@@ -1,23 +1,29 @@
-import React from 'react';
+import React from "react";
 import { formatPrice } from "../helpers";
 
-class Order extends React.Component {
-  handleClick = () => {
-    this.props.addToOrder(this.props.index);
-  }
+class Fish extends React.Component {
   render() {
-    const isAvailable = this.props.details.status === 'available';
+    if (!this.props.details) return null;
+    const { image, name, price, desc, status } = this.props.details;
+    const isAvailable = status === "available";
+    if (!this.props.details) return null;
     return (
       <li className="menu-fish">
-        <img src={this.props.details.image} alt={this.props.details.name} />
-        <h3 className="fish-name">{this.props.details.name}
-          <span className="price">{formatPrice(this.props.details.price)}</span>
+        <img src={image} alt={name} />
+        <h3 className="fish-name">
+          {name}
+          <span className="price">{formatPrice(price)}</span>
         </h3>
-        <p>{this.props.details.desc}</p>
-        <button onClick={this.handleClick} disabled={!isAvailable}>{isAvailable ? 'Add to cart' : 'Sold out'}</button>
+        <p>{desc}</p>
+        <button
+          disabled={!isAvailable}
+          onClick={() => this.props.addToOrder(this.props.index)}
+        >
+          {isAvailable ? "Add To Order" : "Sold Out!"}
+        </button>
       </li>
     );
   }
 }
 
-export default Order;
+export default Fish;
